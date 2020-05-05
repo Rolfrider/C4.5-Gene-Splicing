@@ -1,19 +1,6 @@
 from algorithm.data_struct import Example
 from algorithm.entropy import *
 from abc import ABC, abstractmethod
-class Tree:
-
-    def __init__(self, training_data: [Example]):
-        self.root = Node(0 , training_data)
-        
-class SplitAtribute:
-
-    def __init__(self, index: int, value: str):
-        self.index = index
-        self.value = value
-
-    def match(self, example: Example):
-        return example.attributes[self.index] == self.value
 
 def build_tree(training_data: [Example]):
     attr_indecies = [i for i in range(0, len(training_data[0].attributes))]
@@ -41,6 +28,10 @@ def id3(attr_indecies: [int], examples: [Example], level: int = 0):
     children = { val : id3(attr_indecies, exps, next_level) for val, exps in value_examples.items() }
 
     return Branch(level, best_attr, children)
+
+def c45(attr_indecies: [int], examples: [Example], level: int = 0):
+    tree = id3(attr_indecies, examples, level)
+
 
 
 
