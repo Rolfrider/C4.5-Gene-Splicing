@@ -15,6 +15,7 @@ examples = [
     Example("IDA", '0')
 ]
 tree = build_tree(examples)
-result = tree.determine("EWA")
-print(result)
-# print(tree)
+# result = tree.determine("EWA")
+# print(result)
+for branch in tree:
+    print(branch)

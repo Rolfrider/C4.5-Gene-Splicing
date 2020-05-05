@@ -1,10 +1,12 @@
 from algorithm.data_struct import Example
 from algorithm.entropy import *
 from abc import ABC, abstractmethod
+from queue import PriorityQueue
 
 def build_tree(training_data: [Example]):
     attr_indecies = [i for i in range(0, len(training_data[0].attributes))]
-    return id3(attr_indecies, training_data)
+    tree = id3(attr_indecies, training_data)
+    return c45(tree)
 
 def id3(attr_indecies: [int], examples: [Example], level: int = 0):
     if all(example.positive for example in examples):
@@ -29,10 +31,21 @@ def id3(attr_indecies: [int], examples: [Example], level: int = 0):
 
     return Branch(level, examples, best_attr, children)
 
-def c45(attr_indecies: [int], examples: [Example], level: int = 0):
-    tree = id3(attr_indecies, examples, level)
+def c45(tree):
+    return get_branches(tree)
 
 
+def get_branches(node, branches = []):
+    if isinstance(node, Leaf):
+        return branches
+    else:
+        branches_and_me = branches + [node]
+        for child in node.children.values():
+            new_branches = get_branches(child, branches)
+            if not new_branches:
+                continue
+            branches_and_me += new_branches
+        return branches_and_me
 
 
 def inf_gain(attr_index: int, examples: [Example]):
@@ -64,6 +77,9 @@ class Node(ABC):
     def determine(self, attribiutes) -> bool:
         pass
 
+    def __str__(self):
+        return "Level: " + str(self.level)
+
 class Branch(Node):
     def __init__(self, level, train_examples: [Example], spliting_attr: int, children):
         super().__init__(level, train_examples)
@@ -71,7 +87,7 @@ class Branch(Node):
         self.spliting_attr = spliting_attr
 
     def __str__(self):
-        return "Branch split on index: " + str(self.spliting_attr) + self.children_str()
+        return super().__str__() + " Branch split on index: " + str(self.spliting_attr) + self.children_str()
 
     def children_str(self):
         string = ""
@@ -91,7 +107,7 @@ class Leaf(Node):
         self.positive = positive
 
     def __str__(self):
-        return "Leaf: " + str(self.positive)
+        return super().__str__() + " Leaf: " + str(self.positive)
 
     def determine(self, attribiutes):
         return self.positive
