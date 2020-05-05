@@ -15,4 +15,6 @@ examples = [
     Example("IDA", '0')
 ]
 tree = build_tree(examples)
-print(tree)
+result = tree.determine("EWA")
+print(result)
+# print(tree)

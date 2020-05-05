@@ -1,6 +1,6 @@
 from algorithm.data_struct import Example
 from algorithm.entropy import *
-
+from abc import ABC, abstractmethod
 class Tree:
 
     def __init__(self, training_data: [Example]):
@@ -18,18 +18,17 @@ class SplitAtribute:
 def build_tree(training_data: [Example]):
     attr_indecies = [i for i in range(0, len(training_data[0].attributes))]
     return id3(attr_indecies, training_data)
-    pass
 
-def id3(attr_indecies: [int], examples: [Example]):
+def id3(attr_indecies: [int], examples: [Example], level: int = 0):
     if all(example.positive for example in examples):
-        return Leaf(0, True)
+        return Leaf(level, True)
 
     if all(not example.positive for example in examples):
-        return Leaf(0, False)
+        return Leaf(level, False)
 
     if not attr_indecies:
         positives, negatives = count_classes(examples)
-        return Leaf(0, True) if positives > negatives else Leaf(0, False)
+        return Leaf(level, True) if positives > negatives else Leaf(level, False)
 
     best_attr = max(attr_indecies, key=lambda attr: inf_gain(attr, examples))
 
@@ -37,9 +36,11 @@ def id3(attr_indecies: [int], examples: [Example]):
 
     attr_indecies.remove(best_attr)
 
-    children = { val : id3(attr_indecies, exps) for val, exps in value_examples.items() }
+    next_level = level + 1
 
-    return Branch(0, best_attr, children)
+    children = { val : id3(attr_indecies, exps, next_level) for val, exps in value_examples.items() }
+
+    return Branch(level, best_attr, children)
 
 
 
@@ -62,10 +63,14 @@ def single_inf(attr_examples: [Example], examples_count: int):
     return (len(attr_examples)/examples_count) * entropy(attr_examples)
         
 
-class Node:
+class Node(ABC):
 
     def __init__(self, level):
         self.level = level
+
+    @abstractmethod
+    def determine(self, attribiutes) -> bool:
+        pass
 
 class Branch(Node):
     def __init__(self, level, spliting_attr: int, children):
@@ -82,6 +87,10 @@ class Branch(Node):
              string += "\nFor value: " + str(val) + " have " + str(node)
         return string
 
+    def determine(self, attribiutes):
+        key = attribiutes[self.spliting_attr]
+        return self.children[key].determine(attribiutes)
+
 
 class Leaf(Node):
 
@@ -91,3 +100,6 @@ class Leaf(Node):
 
     def __str__(self):
         return "Leaf: " + str(self.positive)
+
+    def determine(self, attribiutes):
+        return self.positive
