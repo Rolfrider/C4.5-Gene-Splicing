@@ -8,14 +8,14 @@ def build_tree(training_data: [Example]):
 
 def id3(attr_indecies: [int], examples: [Example], level: int = 0):
     if all(example.positive for example in examples):
-        return Leaf(level, True)
+        return Leaf(level, examples, True)
 
     if all(not example.positive for example in examples):
-        return Leaf(level, False)
+        return Leaf(level, examples, False)
 
     if not attr_indecies:
         positives, negatives = count_classes(examples)
-        return Leaf(level, True) if positives > negatives else Leaf(level, False)
+        return Leaf(level, examples, True) if positives > negatives else Leaf(level, examples, False)
 
     best_attr = max(attr_indecies, key=lambda attr: inf_gain(attr, examples))
 
@@ -27,7 +27,7 @@ def id3(attr_indecies: [int], examples: [Example], level: int = 0):
 
     children = { val : id3(attr_indecies, exps, next_level) for val, exps in value_examples.items() }
 
-    return Branch(level, best_attr, children)
+    return Branch(level, examples, best_attr, children)
 
 def c45(attr_indecies: [int], examples: [Example], level: int = 0):
     tree = id3(attr_indecies, examples, level)
@@ -56,16 +56,17 @@ def single_inf(attr_examples: [Example], examples_count: int):
 
 class Node(ABC):
 
-    def __init__(self, level):
+    def __init__(self, level, train_examples: [Example]):
         self.level = level
+        self.train_examples = train_examples
 
     @abstractmethod
     def determine(self, attribiutes) -> bool:
         pass
 
 class Branch(Node):
-    def __init__(self, level, spliting_attr: int, children):
-        super().__init__(level)
+    def __init__(self, level, train_examples: [Example], spliting_attr: int, children):
+        super().__init__(level, train_examples)
         self.children = children
         self.spliting_attr = spliting_attr
 
@@ -85,8 +86,8 @@ class Branch(Node):
 
 class Leaf(Node):
 
-    def __init__(self, level, positive: bool):
-        super().__init__(level)
+    def __init__(self, level, train_examples: [Example], positive: bool):
+        super().__init__(level, train_examples)
         self.positive = positive
 
     def __str__(self):
