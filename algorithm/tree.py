@@ -39,11 +39,11 @@ def id3(attr_indecies: [int], examples: [Example], level: int = 0):
 def c45(tree):
     branches = get_branches(tree)
     for branch in sorted(branches, key=lambda x: x.level, reverse=True):
-        branch_error = error(branch, branch.train_examples)
+        branch_error = error(branch, tree.train_examples)
         positives, negatives = count_classes(branch.train_examples)
         leaf = Leaf(branch.level, branch.train_examples, True) if positives > negatives else Leaf(
             branch.level, branch.train_examples, False)
-        leaf_error = error(leaf, leaf.train_examples)
+        leaf_error = error(leaf, tree.train_examples)
         if branch_error >= leaf_error:
             tree.replace_branch(branch, leaf)
     return tree

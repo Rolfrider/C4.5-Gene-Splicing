@@ -36,9 +36,12 @@ class Branch(Node):
             string += "\nFor value: " + str(val) + " have " + str(node)
         return string
 
-    def determine(self, attribiutes):
+    def determine(self, attribiutes): 
         key = attribiutes[self.spliting_attr]
-        return self.children[key].determine(attribiutes)
+        if key in self.children:
+            return self.children[key].determine(attribiutes)
+        else:
+            return False
 
     def replace_branch(self, branch, node):
         if all(isinstance(child, Leaf) for child in self.children.values()):

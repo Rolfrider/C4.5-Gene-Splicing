@@ -10,7 +10,7 @@ def parse_examples(lines):
 
 
 def read_file(file_name):
-    with open(data_folder + donor_file) as file:
+    with open(data_folder + file_name) as file:
         lines = file.readlines()
         return parse_examples(lines[1:])
 
