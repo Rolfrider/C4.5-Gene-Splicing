@@ -6,8 +6,8 @@ from math import sqrt
 def build_tree(training_data: [Example]):
     attr_indecies = [i for i in range(0, len(training_data[0].attributes))]
     tree = id3(attr_indecies, training_data)
-    print("Before c4.5:")
-    print(tree)
+    #print("Before c4.5:")
+    #print(tree)
     return c45(tree)
 
 
