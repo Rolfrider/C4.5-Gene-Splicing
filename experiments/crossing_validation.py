@@ -2,14 +2,19 @@ from algorithm.data_struct import *
 from algorithm.tree import build_tree
 import json
 
-def test_crossing_validation(examples: [Example]):
+def test_crossing_validation(acteptors_examples: [Example], donors_examples: [Example]):
     set_dividers = [0.05, 0.1, 0.2, 0.25, 0.3, 0.4, 0.5]
-    results = []
+    acteptors_results = []
+    donors_results = []
     for divider in set_dividers:
-        results.append(crossing_validation(examples, divider))
-    file_name = "results/crossing_validation.json"
+        acteptors_results.append(crossing_validation(acteptors_examples, divider))
+        donors_results.append(crossing_validation(donors_examples, divider))
+    file_name = "results/aceptors_crossing_validation.json"
     with open(file_name, "w") as file:
-        json.dump(results, file)
+        json.dump(acteptors_results, file)
+    file_name = "results/donors_crossing_validation.json"
+    with open(file_name, "w") as file:
+        json.dump(donors_results, file)
     
 
 def crossing_validation(examples: [Example], subset_size: float):
@@ -21,9 +26,10 @@ def crossing_validation(examples: [Example], subset_size: float):
 
     while remaining_examples > 0:
         if remaining_examples >= testing_size:
-            testing_set = examples[remaining_examples-testing_size:remaining_examples]
-            training_set = examples[:remaining_examples-testing_size] + examples[remaining_examples:]
-            remaining_examples = remaining_examples - testing_size
+            start_index = remaining_examples-testing_size
+            testing_set = examples[start_index:remaining_examples]
+            training_set = examples[:start_index] + examples[remaining_examples:]
+            remaining_examples = start_index
         else:
             testing_set = examples[:remaining_examples]
             training_set = examples[remaining_examples:]
@@ -34,8 +40,8 @@ def crossing_validation(examples: [Example], subset_size: float):
         tree = build_tree(training_set)
         results = [tree.determine(x.attributes) for x in testing_set]
         
-        accuracy = accuracy + count_accuracy(results, testing_set)
-        iteration = iteration + 1
+        accuracy += count_accuracy(results, testing_set)
+        iteration += 1
     
     return accuracy/iteration
 
@@ -43,6 +49,6 @@ def count_accuracy(results: [bool], testing_set: Example):
     matching = 0
     for i in range(0, len(results)):
         if results[i] == testing_set[i].positive:
-            matching = matching + 1
+            matching += 1
     print(matching/len(results))
     return matching/len(results)
