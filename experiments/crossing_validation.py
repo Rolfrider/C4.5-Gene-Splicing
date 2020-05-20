@@ -7,8 +7,13 @@ def test_crossing_validation(acteptors_examples: [Example], donors_examples: [Ex
     acteptors_results = []
     donors_results = []
     for divider in set_dividers:
-        acteptors_results.append(((str)(divider), crossing_validation(acteptors_examples, divider)))
-        donors_results.append(((str)(divider), crossing_validation(donors_examples, divider)))
+        a_result = crossing_validation(acteptors_examples, divider)
+        d_result = crossing_validation(donors_examples, divider)
+        acteptors_results.append(((str)(divider), a_result))
+        donors_results.append(((str)(divider), d_result))
+        print("Average acteptors matching for a subset size of " + str(divider) + ": " + str(a_result))
+        print("Average donors matching for a subset size of " + str(divider) + ": " + str(d_result))
+        print()
     file_name = "results/aceptors_crossing_validation.json"
     with open(file_name, "w") as file:
         json.dump(acteptors_results, file)
