@@ -1,7 +1,7 @@
 from read.read import get_acceptors, get_donors
 from algorithm.data_struct import Example
 from algorithm.tree import build_tree
-from tests.crossing_validation import test_crossing_validation, crossing_validation
+from experiments.crossing_validation import test_crossing_validation, crossing_validation
 
 # print(get_acceptors())
 # print(get_donors())
