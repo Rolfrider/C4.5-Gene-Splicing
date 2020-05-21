@@ -8,7 +8,7 @@ def build_tree(training_data: [Example]):
     tree = id3(attr_indecies, training_data)
     #print("Before c4.5:")
     #print(tree)
-    return c45(tree)
+    return tree
 
 
 def id3(attr_indecies: [int], examples: [Example], level: int = 0):
