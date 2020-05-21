@@ -1,16 +1,21 @@
 from algorithm.data_struct import *
 from algorithm.tree import build_tree
 import json
+import random
 
 def test_crossing_validation(acteptors_examples: [Example], donors_examples: [Example]):
-    set_dividers = [0.05, 0.1, 0.2, 0.25, 0.3, 0.4, 0.5]
+    testing_k = [20, 10, 5, 4, 3, 2]
+    iteration = 3
     acteptors_results = []
     donors_results = []
-    for divider in set_dividers:
-        a_result = crossing_validation(acteptors_examples, divider)
-        d_result = crossing_validation(donors_examples, divider)
-        acteptors_results.append(((str)(divider), a_result))
-        donors_results.append(((str)(divider), d_result))
+    for k in testing_k:
+        a_result = 0
+        d_result = 0
+        for i in range(0, iteration):
+            a_result += crossing_validation(acteptors_examples, k)
+            d_result += crossing_validation(donors_examples, k)
+        acteptors_results.append(((str)(k), a_result/iteration))
+        donors_results.append(((str)(k), d_result/iteration))
     file_name = "results/aceptors_crossing_validation.json"
     with open(file_name, "w") as file:
         json.dump(acteptors_results, file)
@@ -24,15 +29,16 @@ def test_crossing_validation(acteptors_examples: [Example], donors_examples: [Ex
         print("Average donors matching for a subset size of " + str(result[0]) + ": " + str(result[1]))
     
 
-def crossing_validation(examples: [Example], subset_size: float):
+def crossing_validation(examples: [Example], k: int):
     size = len(examples)
-    testing_set_size = (int)(size*subset_size)
+    random.shuffle(examples)
+    testing_set_size = (int)(size/k)
     remaining_examples = size
     accuracy = 0
     iteration = 0
 
     while remaining_examples > 0:
-        if remaining_examples >= testing_set_size:
+        if remaining_examples - testing_set_size >= testing_set_size:
             testing_set_start_index = remaining_examples-testing_set_size
             testing_set = examples[testing_set_start_index:remaining_examples]
             training_set = examples[:testing_set_start_index] + examples[remaining_examples:]
