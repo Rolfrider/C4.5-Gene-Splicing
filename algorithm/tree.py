@@ -10,6 +10,9 @@ def build_tree(training_data: [Example]):
     #print(tree)
     return tree
 
+def build_tree_c45(training_data: [Example]):
+    return c45(build_tree(training_data))
+
 
 def id3(attr_indecies: [int], examples: [Example], level: int = 0):
     if all(example.positive for example in examples):
