@@ -1,5 +1,7 @@
 \section{Opis projektu}
 \subsection{Cel projektu}
+
+
 Celem projektu {\it DNA C4.5} było stworzenie aplikacji wykorzystującej algorytm C4.5 do klasyfikacji sekwencji DNA na podstawie zadanych zbiorów. 
 
 \subsection{Przyjęte założenia}
@@ -12,6 +14,12 @@ Celem projektu {\it DNA C4.5} było stworzenie aplikacji wykorzystującej algory
 \end{itemize}
 \subsection{Decyzje projektowe}
 
+
+Zdecydowaliśmy się zaimplementować algorytm wykorzystując drzewo dowolne(nie binarne). Dzięki temu, ograniczyliśmy głębokość drzewa, co za tym idzie klasyfikacja powinna średnio przebiegać szybciej.
+Minusem tej decyzji jest klasyfikacja drzewa o wartościach dotąd nie znanych w procesie uczenia. Rozwiązaniem tego problemu jest dodanie klasy domyślnej dla przykładów, które drzewo nie jest w stanie sklasyfikować. Związku z tym, że w naszej przestrzeni możliwych klas znajdują się tylko dwie, mówiące czy dany wycinek kodu genetycznego jest akceptorem(lub donorem w zależności od problemu), zdecydowaliśmy się w takich przypadkach stwierdzać, że dany przykład nie jest akceptorem(bądź też donorem). 
+
 \subsection{Wykorzystane narzędzia i biblioteki}
+
+
 Do napisania aplikacji użyliśmy języka Python w wersji: 3.8, dokumentacja została stworzona przy użyciu języka Latex, a IDE z którego korzystaliśmy to Visual Studio Code. Użyliśmy również systemu kontroli wersji Git.
 Link do repozytorium: {\it https://github.com/Rolfrider/C4.5-Gene-Splicing}
