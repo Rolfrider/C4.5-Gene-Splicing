@@ -1,4 +1,4 @@
-
+# autor: Rafał Kwiatkowski
 data_folder = "data/"
 donor_file = "spliceDTrainKIS.dat"
 acceptor_file = "spliceATrainKIS.dat"

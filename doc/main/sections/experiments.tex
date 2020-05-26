@@ -1,6 +1,6 @@
 \section{Eksperymenty}
-W naszym projekcie przeprowadziliśmy walidacji krzyżowej dla parametru k równego 10 dla drzewa utworzonego przez algorytm ID3 oraz dla drzewa utworzonego prze C4.5.
-
+W naszym projekcie przeprowadziliśmy walidację krzyżową dla parametru k równego 10 dla drzewa utworzonego przez algorytm ID3 oraz dla drzewa utworzonego prze C4.5. Test został powtórzony 100 razy, a uśrednione wyniki zostały przedstawione poniżej.
+Celem tego testu jest sprawdzenie czy algorytm C4.5 uzyskuje lepsze wyniki niż ID3 będący częścią algorytmu C4.5. Taka sytuacja powinna wystąpić jeżeli dla testowanych danych występuje zjawisko przetrenowania przy algorytmie ID3.
 \subsection{Wyniki}
 
 
@@ -9,7 +9,7 @@ W naszym projekcie przeprowadziliśmy walidacji krzyżowej dla parametru k równ
     \centering
     \begin{tabular}{|c|c|}
     \hline
-    Algorytm                & Dopasowanie         \\ \hline
+    Algorytm                & Średnie dopasowanie \\ \hline
     ID3                     & 81,5\%              \\ \hline
     C4.5                    & 81,4\%              \\ \hline
     \end{tabular}
@@ -21,7 +21,7 @@ W naszym projekcie przeprowadziliśmy walidacji krzyżowej dla parametru k równ
     \centering
     \begin{tabular}{|c|c|}
     \hline
-    Algorytm                & Dopasowanie         \\ \hline
+    Algorytm                & Średnie dopasowanie \\ \hline
     ID3                     & 83,2\%              \\ \hline
     C4.5                    & 81,7\%              \\ \hline
     \end{tabular}
@@ -29,19 +29,5 @@ W naszym projekcie przeprowadziliśmy walidacji krzyżowej dla parametru k równ
     \label{tab:crossing}
 \end{table}
 
-Z wyników walidacji...
-
-\begin{figure}[H]
-    \centering 
-    \begin{subfigure}[b]{0.49\linewidth}
-        \includegraphics[width=\linewidth]{img/acteptors_matching.pdf}
-        \caption{$\mu$ = 2}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\linewidth}
-        \includegraphics[width=\linewidth]{img/donors_matching.pdf}
-        \caption{$\mu$ = 10}
-    \end{subfigure}
-    \caption{Akceptory i donory}
-    \label{fig:picking}
-\end{figure}
+Z wyników walidacji wynika, że drzewo przed zastosowaniem algorytmu C4.5 daje lepszą dokładność wyników niż po. Algorytm C4.5 przyśpiesza działanie programu na utworzonym drzewie oraz pozwala uniknąć nadmiernego dopasowania. Wyniki świadczą o tym, że w naszym przypadku zjawisko to nie występowało na tyle często by polepszyć końcowy wynik, a wręcz przeciwnie.
 

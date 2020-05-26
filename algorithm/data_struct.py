@@ -1,3 +1,4 @@
+# autor: Rafał Kwiatkowski
 from abc import ABC, abstractmethod
 
 class Example:

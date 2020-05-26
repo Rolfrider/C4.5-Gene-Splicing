@@ -1,3 +1,4 @@
+#autor: Franciszek Sioma
 from algorithm.data_struct import *
 from algorithm.tree import build_tree, build_tree_c45
 import json
@@ -27,11 +28,7 @@ def test_crossing_validation(acteptors_examples: [Example], donors_examples: [Ex
     save_results(donors_results, "c45", "donors")
     
     save_results(acteptors_results_id3, "id3", "acteptors")
-    save_results(donors_results_id3, "id3", "donors")
-
-    save_plot("acteptors_matching", acteptors_results, acteptors_results_id3)
-    save_plot("donors_matching", donors_results, donors_results_id3)
-    
+    save_results(donors_results_id3, "id3", "donors")  
 
 def crossing_validation(examples: [Example], k: int, tree_builder):
     random.shuffle(examples)
@@ -67,20 +64,6 @@ def count_accuracy(results: [bool], testing_set: Example):
             matching += 1
     print("Tree answers matching: " + str(matching/len(results)) + "\n")
     return matching/len(results)
-
-def save_plot(title: str, results_c45, results_id3):
-    fig = plt.figure()
-    label = "test_c45"
-    plt.plot([x[0] for x in results_c45], [x[1] for x in results_c45], label=label)
-
-    label = "test_id3"
-    plt.plot([x[0] for x in results_id3], [x[1] for x in results_id3], label=label)
-
-    plt.title(title)
-    plt.xlabel("Iterations")
-    plt.ylabel("Score")
-    plt.legend(loc='best')
-    fig.savefig("results/" + title + ".pdf")
 
 def save_results(results, tree_type: str, set_type: str):
     if tree_type == "c45":

@@ -1,18 +1,29 @@
 \section{Opis projektu}
 \subsection{Cel projektu}
-Celem projektu {\it DNA C4.5} było stworzenie aplikacji wykorzystującej algorytm C4.5 do klasyfikacji sekwencji DNA na podstawie zadanych zbiorów. 
 
-\subsection{Przyjęte założenia}
 
+Celem projektu {\it DNA C4.5} było stworzenie aplikacji wykorzystującej algorytm C4.5 do rozpoznawania w zadanej sekwencji kodującej białko jednego z dwóch możliwych miejsc rozcięcia - donora lub akceptora. Zadanie zatem sprowadza się do dwóch rozłącznych zadań: 
+\begin{itemize}
+    \item rozróżnianie prawdziwych donorów od sekwencji je przypominających
+    \item rozróżnianie prawdziwych akceptorów od sekwencji je przypominających
+\end{itemize}
+
+W naszym programie przyjęliśmy kolejne znaki w sekwencji kodującej jako atrybuty danego przykładu.
 \subsection{Wkład autorów}
 \begin{itemize}
     \item Algorytm C4.5 - Rafał Kwiatkowski
     \item Testy i eksperymenty - Franciszek Sioma
-    \item Dokumentacja - Franciszek Sioma
+    \item Dokumentacja - Franciszek Sioma, Rafał Kwiatkowski
 \end{itemize}
 \subsection{Decyzje projektowe}
 
-\subsection{Wykorzystane narzędzia i biblioteki}
-Do napisania aplikacji użyliśmy języka Python w wersji: 3.8, dokumentacja została stworzona przy użyciu języka Latex, a IDE z którego korzystaliśmy to Visual Studio Code. Użyliśmy również systemu kontroli wersji Git.
 
-Spis użytych bibliotek znajduje się w pliku {\it requirements.txt}.
+Zdecydowaliśmy się zaimplementować algorytm wykorzystując drzewo dowolne(niebinarne). Dzięki temu, ograniczyliśmy głębokość drzewa, co za tym idzie klasyfikacja powinna średnio przebiegać szybciej.
+Minusem tej decyzji jest klasyfikacja drzewa o wartościach dotąd nieznanych w procesie uczenia. Rozwiązaniem tego problemu jest dodanie klasy domyślnej dla przykładów, które drzewo nie jest w stanie sklasyfikować. W związku z tym, że w naszej przestrzeni możliwych klas znajdują się tylko dwie, mówiące czy dany wycinek kodu genetycznego jest akceptorem(lub donorem w zależności od problemu), zdecydowaliśmy się w takich przypadkach stwierdzać, że dany przykład nie jest akceptorem(bądź też donorem). 
+
+W ramach eksperymentów postanowiliśmy użyć walidacji krzyżowej, dzięki której jesteśmy pewni, że przetestowaliśmy cały zbiór danych. Wykorzystaliśmy K-krotną walidację z parametrem k równym 10.
+\subsection{Wykorzystane narzędzia i biblioteki}
+
+
+Do napisania aplikacji użyliśmy języka Python w wersji: 3.8, dokumentacja została stworzona przy użyciu języka Latex, a IDE z którego korzystaliśmy to Visual Studio Code. Użyliśmy również systemu kontroli wersji Git.
+Link do repozytorium: {\it https://github.com/Rolfrider/C4.5-Gene-Splicing}
