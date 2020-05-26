@@ -5,7 +5,7 @@
 Celem projektu {\it DNA C4.5} było stworzenie aplikacji wykorzystującej algorytm C4.5 do klasyfikacji sekwencji DNA na podstawie zadanych zbiorów. 
 
 \subsection{Przyjęte założenia}
-
+Przy tworzeniu drzewa przyjęliśmy kolejne znaki w kodzie genetycznym jako atrybuty drzewa.
 \subsection{Wkład autorów}
 \begin{itemize}
     \item Algorytm C4.5 - Rafał Kwiatkowski
@@ -15,9 +15,10 @@ Celem projektu {\it DNA C4.5} było stworzenie aplikacji wykorzystującej algory
 \subsection{Decyzje projektowe}
 
 
-Zdecydowaliśmy się zaimplementować algorytm wykorzystując drzewo dowolne(nie binarne). Dzięki temu, ograniczyliśmy głębokość drzewa, co za tym idzie klasyfikacja powinna średnio przebiegać szybciej.
-Minusem tej decyzji jest klasyfikacja drzewa o wartościach dotąd nie znanych w procesie uczenia. Rozwiązaniem tego problemu jest dodanie klasy domyślnej dla przykładów, które drzewo nie jest w stanie sklasyfikować. Związku z tym, że w naszej przestrzeni możliwych klas znajdują się tylko dwie, mówiące czy dany wycinek kodu genetycznego jest akceptorem(lub donorem w zależności od problemu), zdecydowaliśmy się w takich przypadkach stwierdzać, że dany przykład nie jest akceptorem(bądź też donorem). 
+Zdecydowaliśmy się zaimplementować algorytm wykorzystując drzewo dowolne(niebinarne). Dzięki temu, ograniczyliśmy głębokość drzewa, co za tym idzie klasyfikacja powinna średnio przebiegać szybciej.
+Minusem tej decyzji jest klasyfikacja drzewa o wartościach dotąd nieznanych w procesie uczenia. Rozwiązaniem tego problemu jest dodanie klasy domyślnej dla przykładów, które drzewo nie jest w stanie sklasyfikować. W związku z tym, że w naszej przestrzeni możliwych klas znajdują się tylko dwie, mówiące czy dany wycinek kodu genetycznego jest akceptorem(lub donorem w zależności od problemu), zdecydowaliśmy się w takich przypadkach stwierdzać, że dany przykład nie jest akceptorem(bądź też donorem). 
 
+W ramach eksperymentów postanowiliśmy użyć walidacji krzyżowej, dzięki której jesteśmy pewni, że przetestowaliśmy cały zbiór danych. Wykorzystaliśmy K-krotną walidację z parametrem k równym 10.
 \subsection{Wykorzystane narzędzia i biblioteki}
 
 
