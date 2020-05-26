@@ -1,3 +1,4 @@
+# autor: Rafał Kwiatkowski
 from algorithm.data_struct import *
 from algorithm.entropy import *
 from math import sqrt

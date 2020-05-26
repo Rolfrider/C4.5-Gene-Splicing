@@ -1,3 +1,4 @@
+# autor: Rafał Kwiatkowski
 from algorithm.data_struct import Example
 from math import log2
 
